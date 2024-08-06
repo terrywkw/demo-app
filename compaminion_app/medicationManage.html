@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthCare AI Assistant - Medication Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f39c12;
+            --background-color: #f4f4f4;
+            --text-color: #333;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        } */
+
+        /* .container {
+            display: flex;
+            min-height: 100vh;
+        } */
+
+        /* .sidebar {
+            width: 250px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+        } */
+
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .medication-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .medication-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .medication-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .medication-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .medication-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+
+        .medication-actions button {
+            margin-left: 5px;
+            padding: 5px 10px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .add-medication {
+            margin-top: 20px;
+        }
+
+        .add-medication input,
+        .add-medication select {
+            margin-right: 10px;
+            padding: 5px;
+        }
+
+        .reminder {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 10px;
+            margin-top: 15px;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+         <main class="main-content">
+            <div class="medication-header">
+                <h1>Medication Management</h1>
+                <button onclick="showAddMedicationForm()">Add New Medication</button>
+            </div>
+            
+            <div class="medication-grid">
+                <div class="medication-card">
+                    <h2>Current Medications</h2>
+                    <ul class="medication-list" id="medicationList">
+                        <li class="medication-item">
+                            <div>
+                                <strong>Lisinopril</strong> - 10mg
+                                <p>Take 1 tablet daily in the morning</p>
+                            </div>
+                            <div class="medication-actions">
+                                <button onclick="editMedication(1)">Edit</button>
+                                <button onclick="deleteMedication(1)">Delete</button>
+                            </div>
+                        </li>
+                        <li class="medication-item">
+                            <div>
+                                <strong>Metformin</strong> - 500mg
+                                <p>Take 1 tablet twice daily with meals</p>
+                            </div>
+                            <div class="medication-actions">
+                                <button onclick="editMedication(2)">Edit</button>
+                                <button onclick="deleteMedication(2)">Delete</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="medication-card">
+                    <h2>Upcoming Doses</h2>
+                    <ul class="medication-list">
+                        <li class="medication-item">
+                            <div>
+                                <strong>Lisinopril</strong> - 10mg
+                                <p>Today at 8:00 AM</p>
+                            </div>
+                            <button onclick="markAsTaken(1)">Mark as Taken</button>
+                        </li>
+                        <li class="medication-item">
+                            <div>
+                                <strong>Metformin</strong> - 500mg
+                                <p>Today at 1:00 PM</p>
+                            </div>
+                            <button onclick="markAsTaken(2)">Mark as Taken</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="medication-card">
+                    <h2>Refill Reminders</h2>
+                    <ul class="medication-list">
+                        <li class="medication-item">
+                            <div>
+                                <strong>Lisinopril</strong>
+                                <p>Refill needed in 7 days</p>
+                            </div>
+                            <button onclick="requestRefill(1)">Request Refill</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="addMedicationForm" style="display: none;" class="medication-card">
+                <h2>Add New Medication</h2>
+                <div class="add-medication">
+                    <input type="text" id="medicationName" placeholder="Medication Name">
+                    <input type="text" id="medicationDosage" placeholder="Dosage">
+                    <select id="medicationFrequency">
+                        <option value="daily">Daily</option>
+                        <option value="twice">Twice Daily</option>
+                        <option value="asneeded">As Needed</option>
+                    </select>
+                    <button onclick="addMedication()">Add Medication</button>
+                </div>
+            </div>
+
+            <div class="reminder">
+                <strong>Remember:</strong> Always consult with your healthcare provider before making any changes to your medication regimen.
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function showAddMedicationForm() {
+            document.getElementById('addMedicationForm').style.display = 'block';
+        }
+
+        function addMedication() {
+            const name = document.getElementById('medicationName').value;
+            const dosage = document.getElementById('medicationDosage').value;
+            const frequency = document.getElementById('medicationFrequency').value;
+            
+            if (name && dosage && frequency) {
+                const medicationList = document.getElementById('medicationList');
+                const newMedication = document.createElement('li');
+                newMedication.className = 'medication-item';
+                newMedication.innerHTML = `
+                    <div>
+                        <strong>${name}</strong> - ${dosage}
+                        <p>Take ${frequency}</p>
+                    </div>
+                    <div class="medication-actions">
+                        <button onclick="editMedication(${medicationList.children.length + 1})">Edit</button>
+                        <button onclick="deleteMedication(${medicationList.children.length + 1})">Delete</button>
+                    </div>
+                `;
+                medicationList.appendChild(newMedication);
+
+                // Clear form
+                document.getElementById('medicationName').value = '';
+                document.getElementById('medicationDosage').value = '';
+                document.getElementById('medicationFrequency').value = 'daily';
+                document.getElementById('addMedicationForm').style.display = 'none';
+            } else {
+                alert('Please fill in all fields');
+            }
+        }
+
+        function editMedication(id) {
+            // Implement edit functionality
+            alert(`Editing medication with ID ${id}`);
+        }
+
+        function deleteMedication(id) {
+            // Implement delete functionality
+            if (confirm('Are you sure you want to delete this medication?')) {
+                alert(`Deleting medication with ID ${id}`);
+            }
+        }
+
+        function markAsTaken(id) {
+            // Implement mark as taken functionality
+            alert(`Marking medication with ID ${id} as taken`);
+        }
+
+        function requestRefill(id) {
+            // Implement refill request functionality
+            alert(`Requesting refill for medication with ID ${id}`);
+        }
+    </script>
+</body>
+</html>

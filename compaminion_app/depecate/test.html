@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthCare AI Assistant - Routine Planner</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="routine.js" defer></script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+
+        <h1>Create Your Routine Plan</h1>
+
+        <div id="wizard">
+            <div class="section" id="step1">
+                <h2>1. Select Plan Type</h2>
+                <button class="btn plan-type" data-type="daily">Daily</button>
+                <button class="btn plan-type" data-type="weekly">Weekly</button>
+                <button class="btn plan-type" data-type="monthly">Monthly</button>
+            </div>
+
+            <div class="section" id="step2">
+                <h2>2. Personal Information</h2>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" placeholder="Enter your name">
+                    <button type="button" class="voice-input" title="Use voice input">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" placeholder="Enter your age">
+                </div>
+            </div>
+
+            <div class="section" id="step3">
+                <h2>3. Set Health Goals</h2>
+                <div class="form-group">
+                    <label for="shortTermGoal">Short-term Goal:</label>
+                    <input type="text" id="shortTermGoal" placeholder="Enter your short-term health goal">
+                    <button type="button" class="voice-input" title="Use voice input">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label for="longTermGoal">Long-term Goal:</label>
+                    <input type="text" id="longTermGoal" placeholder="Enter your long-term health goal">
+                    <button type="button" class="voice-input" title="Use voice input">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="section" id="step4">
+                <h2>4. Set Preferences</h2>
+                <div class="form-group">
+                    <label for="dietPreference">Dietary Preference:</label>
+                    <select id="dietPreference">
+                        <option value="">Select preference</option>
+                        <option value="vegetarian">Vegetarian</option>
+                        <option value="vegan">Vegan</option>
+                        <option value="pescatarian">Pescatarian</option>
+                        <option value="no-restrictions">No restrictions</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="activityPreference">Preferred Activities:</label>
+                    <input type="text" id="activityPreference" placeholder="E.g., walking, swimming, yoga">
+                    <button type="button" class="voice-input" title="Use voice input">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="section" id="step5">
+                <h2>5. Generated Routine</h2>
+                <div id="routineList">
+                    <div class="routine-item" draggable="true">
+                        <p><strong>7:00 AM:</strong> Wake up and take morning medication</p>
+                    </div>
+                    <div class="routine-item" draggable="true">
+                        <p><strong>8:00 AM:</strong> Light exercise (15-minute walk)</p>
+                    </div>
+                    <div class="routine-item" draggable="true">
+                        <p><strong>9:00 AM:</strong> Breakfast and blood sugar check</p>
+                    </div>
+                </div>
+                <button class="btn" id="customizeRoutine">Customize Routine</button>
+            </div>
+
+            <div class="section" id="step6">
+                <h2>6. Set Reminders</h2>
+                <div class="reminder-option">
+                    <input type="checkbox" id="pushNotification">
+                    <label for="pushNotification">Push Notifications</label>
+                </div>
+                <div class="reminder-option">
+                    <input type="checkbox" id="smsReminder">
+                    <label for="smsReminder">SMS Reminders</label>
+                </div>
+                <div class="reminder-option">
+                    <input type="checkbox" id="emailReminder">
+                    <label for="emailReminder">Email Reminders</label>
+                </div>
+                <div class="form-group">
+                    <label for="reminderFrequency">Reminder Frequency:</label>
+                    <select id="reminderFrequency">
+                        <option value="15min">15 minutes before</option>
+                        <option value="30min">30 minutes before</option>
+                        <option value="1hour">1 hour before</option>
+                    </select>
+                </div>
+                <div class="device-preview">
+                    <h3>Reminder Preview</h3>
+                    <div id="reminderPreview">
+                        <p>Your reminder will look like this:</p>
+                        <div style="border: 1px solid #ddd; padding: 10px; border-radius: 5px;">
+                            <strong>Reminder:</strong> Take your morning medication in 15 minutes.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="step7">
+                <h2>7. Summary</h2>
+                <div id="summaryContent"></div>
+            </div>
+    
+            <div class="navigation">
+                <button id="prevBtn" class="btn" style="display: none;">Previous</button>
+                <button id="nextBtn" class="btn">Next</button>
+                <button id="saveProgressBtn" class="btn">Save Progress</button>
+                <button id="finishBtn" class="btn" style="display: none;">Finish</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <!-- <script>
+        $(document).ready(function() {
+            let currentStep = 1;
+            const totalSteps = 7; // Updated to include summary step
+            let formData = {}; // Object to store form data
+
+            function updateProgress() {
+                let progress = (currentStep - 1) / (totalSteps - 1) * 100;
+                $('.progress').css('width', progress + '%');
+            }
+
+            function showStep(step) {
+                $('.section').hide();
+                $('#step' + step).show();
+                updateProgress();
+
+                if (step === 1) {
+                    $('#prevBtn').hide();
+                } else {
+                    $('#prevBtn').show();
+                }
+
+                if (step === totalSteps) {
+                    $('#nextBtn').hide();
+                    $('#finishBtn').show();
+                    updateSummary();
+                } else {
+                    $('#nextBtn').show();
+                    $('#finishBtn').hide();
+                }
+            }
+
+            function validateStep(step) {
+                let isValid = true;
+                $('.error-message').remove(); // Clear previous error messages
+
+                if (step === 1) {
+                    if (!$('.plan-type.selected').length) {
+                        $('#step1').append('<p class="error-message">Please select a plan type.</p>');
+                        isValid = false;
+                    }
+                } else if (step === 2) {
+                    if ($('#name').val().trim() === '') {
+                        $('#name').after('<p class="error-message">Please enter your name.</p>');
+                        isValid = false;
+                    }
+                    if ($('#age').val().trim() === '') {
+                        $('#age').after('<p class="error-message">Please enter your age.</p>');
+                        isValid = false;
+                    }
+                } else if (step === 3) {
+                    if ($('#shortTermGoal').val().trim() === '') {
+                        $('#shortTermGoal').after('<p class="error-message">Please enter a short-term goal.</p>');
+                        isValid = false;
+                    }
+                    if ($('#longTermGoal').val().trim() === '') {
+                        $('#longTermGoal').after('<p class="error-message">Please enter a long-term goal.</p>');
+                        isValid = false;
+                    }
+                } else if (step === 4) {
+                    if ($('#dietPreference').val() === '') {
+                        $('#dietPreference').after('<p class="error-message">Please select a dietary preference.</p>');
+                        isValid = false;
+                    }
+                    if ($('#activityPreference').val().trim() === '') {
+                        $('#activityPreference').after('<p class="error-message">Please enter preferred activities.</p>');
+                        isValid = false;
+                    }
+                }
+
+                return isValid;
+            }
+
+            function updateFormData() {
+                formData = {
+                    planType: $('.plan-type.selected').data('type'),
+                    name: $('#name').val(),
+                    age: $('#age').val(),
+                    shortTermGoal: $('#shortTermGoal').val(),
+                    longTermGoal: $('#longTermGoal').val(),
+                    dietPreference: $('#dietPreference').val(),
+                    activityPreference: $('#activityPreference').val(),
+                    routine: $('#routineList').children().map(function() {
+                        return $(this).text();
+                    }).get(),
+                    reminders: {
+                        pushNotification: $('#pushNotification').is(':checked'),
+                        smsReminder: $('#smsReminder').is(':checked'),
+                        emailReminder: $('#emailReminder').is(':checked'),
+                        frequency: $('#reminderFrequency').val()
+                    }
+                };
+            }
+
+            function updateSummary() {
+                updateFormData();
+                let summaryHtml = `
+                    <div class="summary-item">
+                        <h3>Plan Type:</h3>
+                        <p>${formData.planType}</p>
+                    </div>
+                    <div class="summary-item">
+                        <h3>Personal Information:</h3>
+                        <p>Name: ${formData.name}</p>
+                        <p>Age: ${formData.age}</p>
+                    </div>
+                    <div class="summary-item">
+                        <h3>Health Goals:</h3>
+                        <p>Short-term: ${formData.shortTermGoal}</p>
+                        <p>Long-term: ${formData.longTermGoal}</p>
+                    </div>
+                    <div class="summary-item">
+                        <h3>Preferences:</h3>
+                        <p>Diet: ${formData.dietPreference}</p>
+                        <p>Activities: ${formData.activityPreference}</p>
+                    </div>
+                    <div class="summary-item">
+                        <h3>Routine:</h3>
+                        <ul>
+                            ${formData.routine.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="summary-item">
+                        <h3>Reminders:</h3>
+                        <p>Push Notifications: ${formData.reminders.pushNotification ? 'Yes' : 'No'}</p>
+                        <p>SMS Reminders: ${formData.reminders.smsReminder ? 'Yes' : 'No'}</p>
+                        <p>Email Reminders: ${formData.reminders.emailReminder ? 'Yes' : 'No'}</p>
+                        <p>Frequency: ${formData.reminders.frequency}</p>
+                    </div>
+                `;
+                $('#summaryContent').html(summaryHtml);
+            }
+
+            $('#nextBtn').click(function() {
+                if (validateStep(currentStep)) {
+                    if (currentStep < totalSteps) {
+                        currentStep++;
+                        showStep(currentStep);
+                    }
+                }
+            });
+
+            $('#prevBtn').click(function() {
+                if (currentStep > 1) {
+                    currentStep--;
+                    showStep(currentStep);
+                }
+            });
+
+            $('#finishBtn').click(function() {
+                alert('Routine plan created successfully!');
+                // Here you would typically send the data to a server
+                console.log(formData);
+            });
+
+            $('#saveProgressBtn').click(function() {
+                updateFormData();
+                localStorage.setItem('routinePlannerProgress', JSON.stringify(formData));
+                alert('Progress saved successfully!');
+            });
+
+            $('.plan-type').click(function() {
+                $('.plan-type').removeClass('selected');
+                $(this).addClass('selected');
+            });
+
+            $('.voice-input').click(function() {
+                alert('Voice input activated. In a real application, this would start voice recognition.');
+            });
+
+            $('#routineList').sortable({
+                update: function(event, ui) {
+                    console.log('Routine order updated');
+                },
+                cancel: ''  // Allow keyboard-focused items to be sorted
+            }).disableSelection();
+
+            // Keyboard navigation for routine items
+            $('#routineList').on('keydown', '.routine-item', function(e) {
+                if (e.which === 38) { // Up arrow
+                    $(this).prev().before($(this));
+                    $(this).focus();
+                } else if (e.which === 40) { // Down arrow
+                    $(this).next().after($(this));
+                    $(this).focus();
+                }
+            });
+
+            $('input[type="checkbox"], #reminderFrequency').change(function() {
+                updateReminderPreview();
+            });
+
+            function updateReminderPreview() {
+                let previewText = 'Your reminder will look like this:\n\n';
+                if ($('#pushNotification').is(':checked')) {
+                    previewText += 'Push Notification: ';
+                }
+                if ($('#smsReminder').is(':checked')) {
+                    previewText += 'SMS: ';
+                }
+                if ($('#emailReminder').is(':checked')) {
+                    previewText += 'Email: ';
+                }
+                previewText += 'Take your morning medication in ' + $('#reminderFrequency').val() + '.';
+                $('#reminderPreview').text(previewText);
+            }
+
+            // Load saved progress if available
+            let savedProgress = localStorage.getItem('routinePlannerProgress');
+            if (savedProgress) {
+                formData = JSON.parse(savedProgress);
+                // Populate form fields with saved data
+                $('.plan-type[data-type="' + formData.planType + '"]').addClass('selected');
+                $('#name').val(formData.name);
+                $('#age').val(formData.age);
+                $('#shortTermGoal').val(formData.shortTermGoal);
+                $('#longTermGoal').val(formData.longTermGoal);
+                $('#dietPreference').val(formData.dietPreference);
+                $('#activityPreference').val(formData.activityPreference);
+                $('#routineList').html(formData.routine.map(item => `<div class="routine-item" draggable="true">${item}</div>`).join(''));
+                $('#pushNotification').prop('checked', formData.reminders.pushNotification);
+                $('#smsReminder').prop('checked', formData.reminders.smsReminder);
+                $('#emailReminder').prop('checked', formData.reminders.emailReminder);
+                $('#reminderFrequency').val(formData.reminders.frequency);
+                updateReminderPreview();
+            }
+
+            showStep(currentStep);
+        });
+    </script> -->
+</body>
+</html>

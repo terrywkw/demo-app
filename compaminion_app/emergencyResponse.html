@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthCare AI Assistant - Emergency Response</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f39c12;
+            --background-color: #f4f4f4;
+            --text-color: #333;
+            --card-bg: #ffffff;
+            --emergency-color: #ff4136;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+        } */
+
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .emergency-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .emergency-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .emergency-button {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            font-size: 24px;
+            color: white;
+            background-color: var(--emergency-color);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .emergency-button:hover {
+            background-color: #e60000;
+        }
+
+        .info-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .info-list li {
+            margin-bottom: 10px;
+        }
+
+        .info-list strong {
+            display: inline-block;
+            width: 150px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <main class="main-content">
+            <div class="emergency-header">
+                <h1>Emergency Response</h1>
+            </div>
+            
+            <div class="emergency-grid">
+                <div class="emergency-card">
+                    <button class="emergency-button" onclick="callEmergency()">Call Emergency Services</button>
+                    <p>Press this button to immediately contact local emergency services.</p>
+                </div>
+
+                <div class="emergency-card">
+                    <h2>Quick Health Information</h2>
+                    <ul class="info-list">
+                        <li><strong>Blood Type:</strong> A+</li>
+                        <li><strong>Allergies:</strong> Penicillin, Peanuts</li>
+                        <li><strong>Conditions:</strong> Diabetes, Hypertension</li>
+                        <li><strong>Medications:</strong> Metformin, Lisinopril</li>
+                    </ul>
+                </div>
+
+                <div class="emergency-card">
+                    <h2>Emergency Contacts</h2>
+                    <ul class="info-list">
+                        <li><strong>Primary Doctor:</strong> Dr. Jane Smith - (555) 123-4567</li>
+                        <li><strong>Next of Kin:</strong> John Doe - (555) 987-6543</li>
+                        <li><strong>Caregiver:</strong> Sarah Johnson - (555) 246-8135</li>
+                    </ul>
+                </div>
+
+                <div class="emergency-card">
+                    <h2>First Aid Instructions</h2>
+                    <ul class="info-list">
+                        <li><a href="#" onclick="showFirstAid('cpr')">CPR Guide</a></li>
+                        <li><a href="#" onclick="showFirstAid('choking')">Choking Response</a></li>
+                        <li><a href="#" onclick="showFirstAid('stroke')">Stroke Symptoms</a></li>
+                        <li><a href="#" onclick="showFirstAid('heartAttack')">Heart Attack Signs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function callEmergency() {
+            // In a real application, this would trigger an emergency call
+            alert("Contacting emergency services. Please stay calm and follow the operator's instructions.");
+        }
+
+        function showFirstAid(type) {
+            let instructions = "";
+            switch(type) {
+                case 'cpr':
+                    instructions = "1. Check the scene for safety\n2. Check for responsiveness\n3. Call for help\n4. Start chest compressions\n5. Give rescue breaths if trained";
+                    break;
+                case 'choking':
+                    instructions = "1. Encourage coughing\n2. Perform back blows\n3. Perform abdominal thrusts (Heimlich maneuver)";
+                    break;
+                case 'stroke':
+                    instructions = "Remember FAST:\nF - Face drooping\nA - Arm weakness\nS - Speech difficulty\nT - Time to call emergency services";
+                    break;
+                case 'heartAttack':
+                    instructions = "Signs include:\n- Chest pain or discomfort\n- Shortness of breath\n- Pain in arms, back, neck, or jaw\n- Cold sweat\n- Nausea\nCall emergency services immediately if suspected";
+                    break;
+            }
+            alert(instructions);
+        }
+    </script>
+</body>
+</html>
