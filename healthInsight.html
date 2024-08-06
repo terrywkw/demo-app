@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthCare AI Assistant - Health Insights</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f39c12;
+            --background-color: #f4f4f4;
+            --text-color: #333;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+        } */
+
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .insights-header {
+            margin-bottom: 20px;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .insight-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .chart-container {
+            height: 200px;
+            margin-top: 15px;
+        }
+
+        .recommendation {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 10px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <main class="main-content">
+            <div class="insights-header">
+                <h1>Health Insights</h1>
+            </div>
+            
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <h2>Blood Pressure Trend</h2>
+                    <div class="chart-container">
+                        <canvas id="bpChart"></canvas>
+                    </div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> Your blood pressure has been stable. Continue with your current medication and exercise routine.
+                    </div>
+                </div>
+
+                <div class="insight-card">
+                    <h2>Daily Step Count</h2>
+                    <div class="chart-container">
+                        <canvas id="stepChart"></canvas>
+                    </div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> You're close to your daily step goal. Try to increase your activity by taking a short walk after dinner.
+                    </div>
+                </div>
+
+                <div class="insight-card">
+                    <h2>Sleep Quality</h2>
+                    <div class="chart-container">
+                        <canvas id="sleepChart"></canvas>
+                    </div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> Your sleep pattern has been irregular. Consider setting a consistent bedtime routine to improve sleep quality.
+                    </div>
+                </div>
+
+                <div class="insight-card">
+                    <h2>Medication Adherence</h2>
+                    <div class="chart-container">
+                        <canvas id="medicationChart"></canvas>
+                    </div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> Great job on taking your medications regularly. Keep up the good work!
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Sample data for charts
+        const bpData = {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+                label: 'Systolic',
+                data: [120, 118, 122, 121, 119, 120, 118],
+                borderColor: 'rgb(255, 99, 132)',
+                tension: 0.1
+            }, {
+                label: 'Diastolic',
+                data: [80, 79, 81, 80, 78, 79, 77],
+                borderColor: 'rgb(54, 162, 235)',
+                tension: 0.1
+            }]
+        };
+
+        const stepData = {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+                label: 'Steps',
+                data: [7500, 8200, 7800, 9000, 8500, 7000, 8800],
+                backgroundColor: 'rgb(75, 192, 192)',
+            }]
+        };
+
+        const sleepData = {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+                label: 'Hours of Sleep',
+                data: [7, 6.5, 8, 7.5, 6, 8.5, 7],
+                borderColor: 'rgb(153, 102, 255)',
+                tension: 0.1
+            }]
+        };
+
+        const medicationData = {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+                label: 'Adherence',
+                data: [100, 100, 100, 100, 100, 100, 100],
+                backgroundColor: 'rgb(255, 159, 64)',
+            }]
+        };
+
+        // Create charts
+        new Chart(document.getElementById('bpChart'), {
+            type: 'line',
+            data: bpData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+
+        new Chart(document.getElementById('stepChart'), {
+            type: 'bar',
+            data: stepData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+
+        new Chart(document.getElementById('sleepChart'), {
+            type: 'line',
+            data: sleepData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+
+        new Chart(document.getElementById('medicationChart'), {
+            type: 'bar',
+            data: medicationData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>HealthCare AI Assistant - Voice Interface</title>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f39c12;
+            --background-color: #f4f4f4;
+            --text-color: #333;
+            --card-bg: #ffffff;
+            --font-size-base: 16px;
+            --font-size-large: 1.25rem;
+            --font-size-small: 0.875rem;
+        }
+    
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            font-size: var(--font-size-base);
+        }
+    
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+    
+        .sidebar {
+            width: 250px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+        }
+    
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+    
+        .chat-history {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+    
+        .chat-message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: var(--font-size-base);
+            line-height: 1.4;
+        }
+    
+        .user-message {
+            align-self: flex-end;
+            background-color: var(--primary-color);
+            color: white;
+        }
+    
+        .assistant-message {
+            align-self: flex-start;
+            background-color: #e0e0e0;
+            color: var(--text-color);
+        }
+    
+        .message-timestamp {
+            font-size: var(--font-size-small);
+            color: #888;
+            margin-top: 5px;
+        }
+    
+        .voice-activation-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+    
+        .voice-activation-btn:hover,
+        .voice-activation-btn:focus {
+            background-color: var(--secondary-color);
+            outline: none;
+        }
+    
+        .voice-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+    
+        .voice-modal-content {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+        }
+    
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: var(--font-size-large);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+    
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+    
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+    
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+    
+            .main-content {
+                order: 1;
+            }
+    
+            .voice-modal-content {
+                width: 90%;
+            }
+    
+            .chat-message {
+                max-width: 90%;
+            }
+        }
+    
+        @media (max-width: 480px) {
+            :root {
+                --font-size-base: 14px;
+            }
+    
+            .voice-activation-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+    
+        /* High Contrast Mode */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary-color: #0000ff;
+                --secondary-color: #ff8000;
+                --background-color: #ffffff;
+                --text-color: #000000;
+            }
+    
+            .chat-message {
+                border: 1px solid #000000;
+            }
+        }
+    
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            .voice-bar {
+                animation: none;
+            }
+    
+            .voice-activation-btn {
+                transition: none;
+            }
+        }
+
+        /* voice visualization CSS */
+        .voice-visualization {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60px;
+        margin-bottom: 20px;
+    }
+
+    .voice-bar {
+        width: 5px;
+        height: 20px;
+        margin: 0 2px;
+        background-color: var(--primary-color);
+        animation: sound 0.5s infinite alternate;
+    }
+
+    .voice-bar:nth-child(2) { animation-delay: 0.1s; }
+    .voice-bar:nth-child(3) { animation-delay: 0.2s; }
+    .voice-bar:nth-child(4) { animation-delay: 0.3s; }
+    .voice-bar:nth-child(5) { animation-delay: 0.4s; }
+
+    @keyframes sound {
+        0% { height: 20px; }
+        100% { height: 50px; }
+    }
+
+    .listening .voice-visualization {
+        display: flex;
+    }
+
+    .processing .voice-visualization,
+    .idle .voice-visualization {
+        display: none;
+    }
+
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="container">
+        <aside class="sidebar" role="complementary">
+            <!-- Sidebar content (similar to dashboard) -->
+        </aside>
+
+        <main class="main-content" role="main" id="main-content">
+            <h1>HealthCare AI Assistant</h1>
+            <div id="chatHistory" class="chat-history" aria-live="polite"></div>
+            <!-- Chat history will be dynamically added here -->
+        </main>
+
+        <button id="voiceActivationBtn" class="voice-activation-btn" aria-label="Activate voice assistant">
+            <i class="fas fa-microphone" aria-hidden="true"></i>
+        </button>
+
+        <div id="voiceModal" class="voice-modal" role="dialog" aria-labelledby="voiceModalTitle">
+            <div class="voice-modal-content">
+                <button id="closeVoiceModal" class="close-btn" aria-label="Close voice assistant">&times;</button>
+                <h2 id="voiceModalTitle" class="sr-only">Voice Assistant</h2>
+                <div id="voiceStatus" class="voice-status" aria-live="assertive">Listening...</div>
+                <div class="voice-visualization" aria-hidden="true">
+                    <div class="voice-bar"></div>
+                    <div class="voice-bar"></div>
+                    <div class="voice-bar"></div>
+                    <div class="voice-bar"></div>
+                    <div class="voice-bar"></div>
+                </div>
+                <div id="voiceText" class="voice-text" aria-live="polite"></div>
+                <div id="voiceResponse" class="voice-response" aria-live="polite"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js"></script>
+    <script>
+        const voiceActivationBtn = document.getElementById('voiceActivationBtn');
+        const voiceModal = document.getElementById('voiceModal');
+        const closeVoiceModal = document.getElementById('closeVoiceModal');
+        const voiceStatus = document.getElementById('voiceStatus');
+        const voiceText = document.getElementById('voiceText');
+        const voiceResponse = document.getElementById('voiceResponse');
+        const chatHistory = document.getElementById('chatHistory');
+    
+        voiceActivationBtn.addEventListener('click', activateVoiceInterface);
+        closeVoiceModal.addEventListener('click', deactivateVoiceInterface);
+    
+        function activateVoiceInterface() {
+            voiceModal.style.display = 'block';
+            voiceModal.classList.add('listening');
+            voiceModal.classList.remove('processing', 'idle');
+            // In a real application, this is where you'd initialize the speech recognition API
+            simulateVoiceInteraction();
+        }
+    
+        function deactivateVoiceInterface() {
+            voiceModal.style.display = 'none';
+            voiceModal.classList.remove('listening', 'processing');
+            voiceModal.classList.add('idle');
+            voiceText.textContent = '';
+            voiceResponse.textContent = '';
+        }
+    
+        function simulateVoiceInteraction() {
+        voiceStatus.textContent = 'Listening...';
+        
+        setTimeout(() => {
+            const userMessage = 'Show me my medication schedule';
+            voiceText.textContent = `User: ${userMessage}`;
+            addMessageToHistory(userMessage, 'user');
+            voiceStatus.textContent = 'Processing...';
+            voiceModal.classList.remove('listening');
+            voiceModal.classList.add('processing');
+            
+            setTimeout(() => {
+                const assistantResponse = 'Certainly! Here\'s your medication schedule for today: \n- 8:00 AM: Blood pressure medication \n- 1:00 PM: Vitamin D supplement \n- 8:00 PM: Cholesterol medication';
+                voiceResponse.textContent = `Assistant: ${assistantResponse}`;
+                addMessageToHistory(assistantResponse, 'assistant');
+                voiceStatus.textContent = 'Anything else I can help you with?';
+                voiceModal.classList.remove('processing');
+                voiceModal.classList.add('listening');
+                
+                // In a real application, you'd keep listening for the next command
+                setTimeout(() => {
+                    deactivateVoiceInterface();
+                }, 5000);
+            }, 2000);
+        }, 2000);
+    }
+
+    function addMessageToHistory(message, sender) {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('chat-message', `${sender}-message`);
+        messageElement.setAttribute('role', 'listitem');
+        messageElement.innerHTML = `
+            ${message}
+            <div class="message-timestamp">${new Date().toLocaleTimeString()}</div>
+        `;
+        chatHistory.appendChild(messageElement);
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+
+        // Announce new message for screen readers
+        const announcement = document.createElement('div');
+        announcement.textContent = `New ${sender} message: ${message}`;
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.classList.add('sr-only');
+        document.body.appendChild(announcement);
+        setTimeout(() => document.body.removeChild(announcement), 1000);
+    }
+
+    // Add this function to toggle the voice modal visibility
+    function toggleVoiceModal(show) {
+        voiceModal.style.display = show ? 'block' : 'none';
+        if (show) {
+            voiceModal.setAttribute('aria-hidden', 'false');
+            closeVoiceModal.focus();
+        } else {
+            voiceModal.setAttribute('aria-hidden', 'true');
+            voiceActivationBtn.focus();
+        }
+    }
+
+    // Update these functions to use the new toggleVoiceModal function
+    function activateVoiceInterface() {
+        toggleVoiceModal(true);
+        voiceModal.classList.add('listening');
+        voiceModal.classList.remove('processing', 'idle');
+        simulateVoiceInteraction();
+    }
+
+    function deactivateVoiceInterface() {
+        toggleVoiceModal(false);
+        voiceModal.classList.remove('listening', 'processing');
+        voiceModal.classList.add('idle');
+        voiceText.textContent = '';
+        voiceResponse.textContent = '';
+    }
+
+    // Add keyboard support for the voice activation button
+    voiceActivationBtn.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            activateVoiceInterface();
+        }
+    });
+
+    // Add keyboard support for the close button
+    closeVoiceModal.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            deactivateVoiceInterface();
+        }
+    });
+    </script>
+</body>
+</html>
