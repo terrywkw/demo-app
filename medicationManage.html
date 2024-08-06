@@ -6,101 +6,8 @@
     <title>HealthCare AI Assistant - Medication Management</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* :root {
-            --primary-color: #4a90e2;
-            --secondary-color: #f39c12;
-            --background-color: #f4f4f4;
-            --text-color: #333;
-            --card-bg: #ffffff;
-        }
+        
 
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            color: var(--text-color);
-            background-color: var(--background-color);
-        } */
-
-        /* .container {
-            display: flex;
-            min-height: 100vh;
-        } */
-
-        /* .sidebar {
-            width: 250px;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 20px;
-        } */
-
-        .main-content {
-            flex-grow: 1;
-            padding: 20px;
-        }
-
-        .medication-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .medication-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .medication-card {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .medication-list {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .medication-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border-radius: 4px;
-        }
-
-        .medication-actions button {
-            margin-left: 5px;
-            padding: 5px 10px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .add-medication {
-            margin-top: 20px;
-        }
-
-        .add-medication input,
-        .add-medication select {
-            margin-right: 10px;
-            padding: 5px;
-        }
-
-        .reminder {
-            background-color: #e8f5e9;
-            border-left: 4px solid #4caf50;
-            padding: 10px;
-            margin-top: 15px;
-        }
 
         
     </style>
@@ -110,7 +17,7 @@
          <main class="main-content">
             <div class="medication-header">
                 <h1>Medication Management</h1>
-                <button onclick="showAddMedicationForm()">Add New Medication</button>
+                <button class="btn" onclick="showAddMedicationForm()">Add New Medication</button>
             </div>
             
             <div class="medication-grid">
@@ -123,8 +30,8 @@
                                 <p>Take 1 tablet daily in the morning</p>
                             </div>
                             <div class="medication-actions">
-                                <button onclick="editMedication(1)">Edit</button>
-                                <button onclick="deleteMedication(1)">Delete</button>
+                                <button class="btn" onclick="editMedication(1)">Edit</button>
+                                <button class="btn" onclick="deleteMedication(1)">Delete</button>
                             </div>
                         </li>
                         <li class="medication-item">
@@ -133,8 +40,8 @@
                                 <p>Take 1 tablet twice daily with meals</p>
                             </div>
                             <div class="medication-actions">
-                                <button onclick="editMedication(2)">Edit</button>
-                                <button onclick="deleteMedication(2)">Delete</button>
+                                <button class="btn" onclick="editMedication(2)">Edit</button>
+                                <button class="btn" onclick="deleteMedication(2)">Delete</button>
                             </div>
                         </li>
                     </ul>
@@ -148,14 +55,14 @@
                                 <strong>Lisinopril</strong> - 10mg
                                 <p>Today at 8:00 AM</p>
                             </div>
-                            <button onclick="markAsTaken(1)">Mark as Taken</button>
+                            <button class="btn" onclick="markAsTaken(1)">Mark as Taken</button>
                         </li>
                         <li class="medication-item">
                             <div>
                                 <strong>Metformin</strong> - 500mg
                                 <p>Today at 1:00 PM</p>
                             </div>
-                            <button onclick="markAsTaken(2)">Mark as Taken</button>
+                            <button class="btn" onclick="markAsTaken(2)">Mark as Taken</button>
                         </li>
                     </ul>
                 </div>
@@ -168,7 +75,7 @@
                                 <strong>Lisinopril</strong>
                                 <p>Refill needed in 7 days</p>
                             </div>
-                            <button onclick="requestRefill(1)">Request Refill</button>
+                            <button class="btn" onclick="requestRefill(1)">Request Refill</button>
                         </li>
                     </ul>
                 </div>

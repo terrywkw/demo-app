@@ -630,3 +630,194 @@ textarea {
     cursor: pointer;
 }
 /* end of add new routine */
+
+/* recorder */
+.records-header {
+    margin-bottom: 20px;
+    gap: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.records-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.record-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border: solid 1px #ddd;
+}
+
+.record-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.record-actions button {
+    padding: 5px 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.record-actions button:hover {
+    background-color: var(--primary-color-hover);
+}
+
+.record-actions button:active {
+    background-color: var(--primary-color-active);
+}
+
+#recordUpload {
+    margin-right: 20px;
+    padding: 5px 10px;
+    color: white;
+    border: solid 1px var(--primary-color);
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.upload-record {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    width: auto;
+    padding: 20px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border: solid 1px #ddd;
+}
+
+.upload-record input[type="file"] {
+    margin-bottom: 10px;
+}
+/*end of recorder */
+
+/* Medication Management CSS */
+.medication-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.medication-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.medication-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.medication-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.medication-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+.medication-actions button {
+    margin-left: 5px;
+    padding: 5px 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-medication {
+    margin-top: 20px;
+}
+
+.add-medication input,
+.add-medication select {
+    margin-right: 10px;
+    padding: 5px;
+}
+
+.reminder {
+    background-color: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    padding: 10px;
+    margin-top: 15px;
+    margin-bottom: 40px;
+}
+
+/* end of medication management */
+
+/* emergency response */
+.emergency-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.emergency-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.emergency-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.emergency-button {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    font-size: 24px;
+    color: white;
+    background-color: red;
+    border: solid 1px white;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.emergency-button:hover {
+    background-color: rgb(176, 0, 0);
+}
+
+.info-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.info-list li {
+    margin-bottom: 10px;
+}
+
+.info-list strong {
+    display: inline-block;
+    width: 150px;
+}
+
+/* end of emergency response */
