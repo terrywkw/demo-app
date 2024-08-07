@@ -1,16 +1,37 @@
 // app.js
+document.addEventListener('DOMContentLoaded', initApp);
+
+const routes = {
+  'dashboard': { url: 'dashboard.html', title: 'Dashboard' },
+  'chat': { url: 'chat.html', title: 'AI Chat' },
+  'routine': { url: 'routine.html', title: 'Create Routine' },
+  'caregiver': { url: 'careGiverSupport.html', title: 'Caregiver Support' },
+  'consultation': { url: 'consultation.html', title: 'Consultation' },
+  'emergency': { url: 'emergencyResponse.html', title: 'Emergency Response' },
+  'healthcare': { url: 'healthcareInfo.html', title: 'Healthcare Info' },
+  'insights': { url: 'healthInsight.html', title: 'Health Insights' },
+  'iot': { url: 'iotDeviceIntegration.html', title: 'IoT Devices' },
+  'medical': { url: 'medicalInfo.html', title: 'Medical Info' },
+  'medication': { url: 'medicationManage.html', title: 'Medication' },
+  'planner': { url: 'planner.html', title: 'Planner' },
+  'records': { url: 'medicalRecord.html', title: 'Medical Records' },
+  'settings': { url: 'setting.html', title: 'Settings' }
+};
 
 document.addEventListener('DOMContentLoaded', (event) => {
   const hamburger = document.querySelector('.hamburger-menu');
   const sidebar = document.querySelector('.sidebar');
+  const container = document.querySelector('#healthInsight-container');
 
   hamburger.addEventListener('click', () => {
       sidebar.classList.toggle('active');
   });
 });
+
 function initApp() {
   setupNavigation();
   setupHamburgerMenu();
+  setupModalListeners();
   loadView('dashboard');
 }
 
@@ -50,40 +71,35 @@ function setupHamburgerMenu() {
 }
 
 function toggleSidebar() {
-  const sidebar = document.getElementById('sidebar');
-  sidebar.classList.toggle('open');
+  document.getElementById('sidebar').classList.toggle('open');
 }
 
 function closeSidebar() {
-  const sidebar = document.getElementById('sidebar');
-  sidebar.classList.remove('open');
+  document.getElementById('sidebar').classList.remove('open');
 }
 
 function loadView(view) {
-  // Existing loadView code...
-  closeSidebar();
+  const mainContent = document.querySelector('[role="main"]');
+  if (routes[view]) {
+      fetch(routes[view].url)
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              return response.text();
+          })
+          .then(html => {
+              mainContent.innerHTML = html;
+              document.title = routes[view].title;
+              history.pushState(null, '', `#${view}`);
+              executePageScripts(view);
+              closeSidebar();
+          })
+          .catch(error => console.error('Error loading view:', error));
+  } else {
+      console.error('View not found:', view);
+  }
 }
-
-// Existing loadView, executePageScripts, etc. functions...
-
-document.addEventListener('DOMContentLoaded', initApp);
-
-const routes = {
-    'dashboard': { url: 'dashboard.html', title: 'Dashboard' },
-    'chat': { url: 'chat.html', title: 'AI Chat' },
-    'routine': { url: 'routine.html', title: 'Create Routine' },
-    'caregiver': { url: 'careGiverSupport.html', title: 'Caregiver Support' },
-    'consultation': { url: 'consultation.html', title: 'Consultation' },
-    'emergency': { url: 'emergencyResponse.html', title: 'Emergency Response' },
-    'healthcare': { url: 'healthcareInfo.html', title: 'Healthcare Info' },
-    'insights': { url: 'healthInsight.html', title: 'Health Insights' },
-    'iot': { url: 'iotDeviceIntegration.html', title: 'IoT Devices' },
-    'medical': { url: 'medicalInfo.html', title: 'Medical Info' },
-    'medication': { url: 'medicationManage.html', title: 'Medication' },
-    'planner': { url: 'planner.html', title: 'Planner' },
-    'records': { url: 'medicalRecord.html', title: 'Medical Records' },
-    'settings': { url: 'setting.html', title: 'Settings' }
-  };
   
   function initApp() {
     setupNavigation();
@@ -98,29 +114,6 @@ const routes = {
         loadView(view);
       });
     });
-  }
-  
-  function loadView(view) {
-    const mainContent = document.querySelector('[role="main"]');
-    if (routes[view]) {
-      fetch(routes[view].url)
-        .then(response => response.text())
-        .then(html => {
-          mainContent.innerHTML = html;
-          // Update page title
-          document.title = routes[view].title;
-          // Update URL without reloading the page
-          history.pushState(null, '', `#${view}`);
-          if (view === 'chat') {
-            initChat();
-          } else if (view === 'routine') {
-            initRoutinePlanner();
-          }
-        })
-        .catch(error => console.error('Error loading view:', error));
-    } else {
-      console.error('View not found:', view);
-    }
   }
   
   function initChat() {
@@ -153,28 +146,12 @@ function executePageScripts(view) {
       case 'routine':
         initRoutinePlanner();
         break;
+      case 'routine':
+        initRoutinePlanner();
+        break;
       // Add other cases as needed
     }
   }
-  
-  function loadView(view) {
-    const mainContent = document.querySelector('[role="main"]');
-    if (routes[view]) {
-      fetch(routes[view].url)
-        .then(response => response.text())
-        .then(html => {
-          mainContent.innerHTML = html;
-          document.title = routes[view].title;
-          history.pushState(null, '', `#${view}`);
-          executePageScripts(view);  // This line calls the function to load and execute scripts
-        })
-        .catch(error => console.error('Error loading view:', error));
-    } else {
-      console.error('View not found:', view);
-    }
-  }
-
-  // Add these functions to your app.js
 
 function openModal() {
   document.getElementById('routineModal').style.display = 'block';
@@ -187,37 +164,41 @@ function closeModal() {
 function loadViewInModal(view) {
   const modalContent = document.getElementById('modalContent');
   if (routes[view]) {
-    fetch(routes[view].url)
-      .then(response => response.text())
-      .then(html => {
-        modalContent.innerHTML = html;
-        openModal();
-        executePageScripts(view);
-      })
-      .catch(error => console.error('Error loading view:', error));
+      fetch(routes[view].url)
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              return response.text();
+          })
+          .then(html => {
+              modalContent.innerHTML = html;
+              openModal();
+              if (view === 'routine') {
+                  initRoutinePlanner();
+              }
+          })
+          .catch(error => console.error('Error loading view in modal:', error));
   } else {
-    console.error('View not found:', view);
+      console.error('View not found:', view);
   }
 }
 
-// // Modify your initApp function to include event listeners for the modal
-// function initApp() {
-//   setupNavigation();
-//   setupHamburgerMenu();
-//   loadView('dashboard');
+function setupModalListeners() {
+  document.getElementById('generatePlan').addEventListener('click', () => loadViewInModal('routine'));
+  document.querySelector('.close').addEventListener('click', closeModal);
+  window.addEventListener('click', (event) => {
+      if (event.target == document.getElementById('routineModal')) {
+          closeModal();
+      }
+  });
+}
 
-//   // Add event listener for the Generate New Routine button
-//   document.getElementById('generatePlan').addEventListener('click', function() {
-//     loadViewInModal('routine');
-//   });
+window.addEventListener('popstate', () => {
+  const view = window.location.hash.slice(1) || 'dashboard';
+  loadView(view);
+});
 
-//   // Add event listener for closing the modal
-//   document.querySelector('.close').addEventListener('click', closeModal);
+document.addEventListener('DOMContentLoaded', initApp);
 
-//   // Close the modal if user clicks outside of it
-//   window.addEventListener('click', function(event) {
-//     if (event.target == document.getElementById('routineModal')) {
-//       closeModal();
-//     }
-//   });
-// }
+

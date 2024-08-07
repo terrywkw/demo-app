@@ -1,168 +1,157 @@
 // routine.js
+
 function initRoutinePlanner() {
+    let currentStep = 1;
+    const totalSteps = 7; // Updated to include summary step
+    let formData = {}; // Object to store form data
 
-$(document).ready(function() {
-  let currentStep = 1;
-  const totalSteps = 7; // Updated to include summary step
-  let formData = {}; // Object to store form data
+    function updateProgress() {
+        let progress = (currentStep - 1) / (totalSteps - 1) * 100;
+        document.querySelector('.progress').style.width = progress + '%';
+    }
 
-  function updateProgress() {
-      let progress = (currentStep - 1) / (totalSteps - 1) * 100;
-      $('.progress').css('width', progress + '%');
-  }
+    function showStep(step) {
+        document.querySelectorAll('.section').forEach(el => el.style.display = 'none');
+        document.getElementById('step' + step).style.display = 'block';
+        updateProgress();
 
-  function showStep(step) {
-      $('.section').hide();
-      $('#step' + step).show();
-      updateProgress();
+        document.getElementById('prevBtn').style.display = step === 1 ? 'none' : 'inline-block';
+        document.getElementById('nextBtn').style.display = step === totalSteps ? 'none' : 'inline-block';
+        document.getElementById('finishBtn').style.display = step === totalSteps ? 'inline-block' : 'none';
 
-      if (step === 1) {
-          $('#prevBtn').hide();
-      } else {
-          $('#prevBtn').show();
-      }
+        if (step === totalSteps) {
+            updateSummary();
+        }
+    }
 
-      if (step === totalSteps) {
-          $('#nextBtn').hide();
-          $('#finishBtn').show();
-          updateSummary();
-      } else {
-          $('#nextBtn').show();
-          $('#finishBtn').hide();
-      }
-  }
+    function validateStep(step) {
+        let isValid = true;
+        $('.error-message').remove(); // Clear previous error messages
+  
+        if (step === 1) {
+            if (!$('.plan-type.selected').length) {
+                $('#step1').append('<p class="error-message">Please select a plan type.</p>');
+                isValid = false;
+            }
+        } else if (step === 2) {
+            if ($('#name').val().trim() === '') {
+                $('#name').after('<p class="error-message">Please enter your name.</p>');
+                isValid = false;
+            }
+            if ($('#age').val().trim() === '') {
+                $('#age').after('<p class="error-message">Please enter your age.</p>');
+                isValid = false;
+            }
+        } else if (step === 3) {
+            if ($('#shortTermGoal').val().trim() === '') {
+                $('#shortTermGoal').after('<p class="error-message">Please enter a short-term goal.</p>');
+                isValid = false;
+            }
+            if ($('#longTermGoal').val().trim() === '') {
+                $('#longTermGoal').after('<p class="error-message">Please enter a long-term goal.</p>');
+                isValid = false;
+            }
+        } else if (step === 4) {
+            if ($('#dietPreference').val() === '') {
+                $('#dietPreference').after('<p class="error-message">Please select a dietary preference.</p>');
+                isValid = false;
+            }
+            if ($('#activityPreference').val().trim() === '') {
+                $('#activityPreference').after('<p class="error-message">Please enter preferred activities.</p>');
+                isValid = false;
+            }
+        }
+  
+        return isValid;
+    }
+  
+    function updateFormData() {
+        formData = {
+            planType: $('.plan-type.selected').data('type'),
+            name: $('#name').val(),
+            age: $('#age').val(),
+            shortTermGoal: $('#shortTermGoal').val(),
+            longTermGoal: $('#longTermGoal').val(),
+            dietPreference: $('#dietPreference').val(),
+            activityPreference: $('#activityPreference').val(),
+            routine: $('#routineList').children().map(function() {
+                return $(this).text();
+            }).get(),
+            reminders: {
+                pushNotification: $('#pushNotification').is(':checked'),
+                smsReminder: $('#smsReminder').is(':checked'),
+                emailReminder: $('#emailReminder').is(':checked'),
+                frequency: $('#reminderFrequency').val()
+            }
+        };
+    }
+  
+    function updateSummary() {
+        updateFormData();
+        let summaryHtml = `
+            <div class="summary-item">
+                <h3>Plan Type:</h3>
+                <p>${formData.planType}</p>
+            </div>
+            <div class="summary-item">
+                <h3>Personal Information:</h3>
+                <p>Name: ${formData.name}</p>
+                <p>Age: ${formData.age}</p>
+            </div>
+            <div class="summary-item">
+                <h3>Health Goals:</h3>
+                <p>Short-term: ${formData.shortTermGoal}</p>
+                <p>Long-term: ${formData.longTermGoal}</p>
+            </div>
+            <div class="summary-item">
+                <h3>Preferences:</h3>
+                <p>Diet: ${formData.dietPreference}</p>
+                <p>Activities: ${formData.activityPreference}</p>
+            </div>
+            <div class="summary-item">
+                <h3>Routine:</h3>
+                <ul>
+                    ${formData.routine.map(item => `<li>${item}</li>`).join('')}
+                </ul>
+            </div>
+            <div class="summary-item">
+                <h3>Reminders:</h3>
+                <p>Push Notifications: ${formData.reminders.pushNotification ? 'Yes' : 'No'}</p>
+                <p>SMS Reminders: ${formData.reminders.smsReminder ? 'Yes' : 'No'}</p>
+                <p>Email Reminders: ${formData.reminders.emailReminder ? 'Yes' : 'No'}</p>
+                <p>Frequency: ${formData.reminders.frequency}</p>
+            </div>
+        `;
+        $('#summaryContent').html(summaryHtml);
+    }
 
-  function validateStep(step) {
-      let isValid = true;
-      $('.error-message').remove(); // Clear previous error messages
+    document.getElementById('nextBtn').addEventListener('click', function() {
+        if (validateStep(currentStep)) {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+    });
 
-      if (step === 1) {
-          if (!$('.plan-type.selected').length) {
-              $('#step1').append('<p class="error-message">Please select a plan type.</p>');
-              isValid = false;
-          }
-      } else if (step === 2) {
-          if ($('#name').val().trim() === '') {
-              $('#name').after('<p class="error-message">Please enter your name.</p>');
-              isValid = false;
-          }
-          if ($('#age').val().trim() === '') {
-              $('#age').after('<p class="error-message">Please enter your age.</p>');
-              isValid = false;
-          }
-      } else if (step === 3) {
-          if ($('#shortTermGoal').val().trim() === '') {
-              $('#shortTermGoal').after('<p class="error-message">Please enter a short-term goal.</p>');
-              isValid = false;
-          }
-          if ($('#longTermGoal').val().trim() === '') {
-              $('#longTermGoal').after('<p class="error-message">Please enter a long-term goal.</p>');
-              isValid = false;
-          }
-      } else if (step === 4) {
-          if ($('#dietPreference').val() === '') {
-              $('#dietPreference').after('<p class="error-message">Please select a dietary preference.</p>');
-              isValid = false;
-          }
-          if ($('#activityPreference').val().trim() === '') {
-              $('#activityPreference').after('<p class="error-message">Please enter preferred activities.</p>');
-              isValid = false;
-          }
-      }
+    document.getElementById('prevBtn').addEventListener('click', function() {
+        if (currentStep > 1) {
+            currentStep--;
+            showStep(currentStep);
+        }
+    });
 
-      return isValid;
-  }
-
-  function updateFormData() {
-      formData = {
-          planType: $('.plan-type.selected').data('type'),
-          name: $('#name').val(),
-          age: $('#age').val(),
-          shortTermGoal: $('#shortTermGoal').val(),
-          longTermGoal: $('#longTermGoal').val(),
-          dietPreference: $('#dietPreference').val(),
-          activityPreference: $('#activityPreference').val(),
-          routine: $('#routineList').children().map(function() {
-              return $(this).text();
-          }).get(),
-          reminders: {
-              pushNotification: $('#pushNotification').is(':checked'),
-              smsReminder: $('#smsReminder').is(':checked'),
-              emailReminder: $('#emailReminder').is(':checked'),
-              frequency: $('#reminderFrequency').val()
-          }
-      };
-  }
-
-  function updateSummary() {
-      updateFormData();
-      let summaryHtml = `
-          <div class="summary-item">
-              <h3>Plan Type:</h3>
-              <p>${formData.planType}</p>
-          </div>
-          <div class="summary-item">
-              <h3>Personal Information:</h3>
-              <p>Name: ${formData.name}</p>
-              <p>Age: ${formData.age}</p>
-          </div>
-          <div class="summary-item">
-              <h3>Health Goals:</h3>
-              <p>Short-term: ${formData.shortTermGoal}</p>
-              <p>Long-term: ${formData.longTermGoal}</p>
-          </div>
-          <div class="summary-item">
-              <h3>Preferences:</h3>
-              <p>Diet: ${formData.dietPreference}</p>
-              <p>Activities: ${formData.activityPreference}</p>
-          </div>
-          <div class="summary-item">
-              <h3>Routine:</h3>
-              <ul>
-                  ${formData.routine.map(item => `<li>${item}</li>`).join('')}
-              </ul>
-          </div>
-          <div class="summary-item">
-              <h3>Reminders:</h3>
-              <p>Push Notifications: ${formData.reminders.pushNotification ? 'Yes' : 'No'}</p>
-              <p>SMS Reminders: ${formData.reminders.smsReminder ? 'Yes' : 'No'}</p>
-              <p>Email Reminders: ${formData.reminders.emailReminder ? 'Yes' : 'No'}</p>
-              <p>Frequency: ${formData.reminders.frequency}</p>
-          </div>
-      `;
-      $('#summaryContent').html(summaryHtml);
-  }
-
-  $('#nextBtn').click(function() {
-      if (validateStep(currentStep)) {
-          if (currentStep < totalSteps) {
-              currentStep++;
-              showStep(currentStep);
-          }
-      }
-  });
-
-  $('#prevBtn').click(function() {
-      if (currentStep > 1) {
-          currentStep--;
-          showStep(currentStep);
-      }
-  });
-
-//   $('#finishBtn').click(function() {
-//       alert('Routine plan created successfully!');
-//       // Here you would typically send the data to a server
-//       console.log(formData);
-//   });
-
-// In the initRoutinePlanner function, replace the existing $('#finishBtn').click handler with:
-    $('#finishBtn').click(function() {
+    document.getElementById('finishBtn').addEventListener('click', function() {
         alert('Routine plan created successfully!');
-        // Here you would typically send the data to a server
         console.log(formData);
-        // Close the modal and return to planner page
         window.parent.closeModal();
     });
+    // Initialize the first step
+    showStep(currentStep);
+}
+
+// Call this function at the end of the file
+initRoutinePlanner();
 
   $('#saveProgressBtn').click(function() {
       updateFormData();
