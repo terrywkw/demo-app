@@ -14,7 +14,7 @@ const routes = {
   'medical': { url: 'medicalInfo.html', title: 'Medical Info' },
   'medication': { url: 'medicationManage.html', title: 'Medication' },
   'planner': { url: 'planner.html', title: 'Planner' },
-  'records': { url: 'medicalRecord.html', title: 'Medical Records' },
+  'records': { url: 'medicalRecord.html', title: 'Voice Memo' },
   'settings': { url: 'setting.html', title: 'Settings' }
 };
 
