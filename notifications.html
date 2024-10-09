@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - Health Companion</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="notifications.css">
+</head>
+<body>
+    <header>
+        <div class="hamburger-menu" id="hamburgerMenu">&#9776;</div>
+        <div class="header-logo">
+            <img src="./assets/temp_logo.svg" alt="App Logo" class="logo">
+            <h1>mGO</h1>
+        </div>
+        <div class="header-right">
+            <a href="notifications.html" class="notification-icon">&#128276;</a>
+            <a href="settings.html" class="profile-icon"><img src="./assets/user_icon_01.jpg" alt="User Profile" class="profile-icon">
+            </a>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        <nav class="sidebar" id="sidebar">
+            <ul>
+                <li><a href="main.html">Dashboard</a></li>
+                <li><a href="ai-assistant.html">AI Health Assistant</a></li>
+                <li><a href="health-management.html">Health Management</a></li>
+                <li><a href="routine-planning.html">Routine & Planning</a></li>
+                <li><a href="telemedicine.html">Telemedicine</a></li>
+                <li><a href="emergency.html">Emergency Response</a></li>
+                <li><a href="iot-devices.html">IoT Devices</a></li>
+                <li><a href="notifications.html">Notifications</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <div class="notifications-container" role="main">
+                <div class="notifications-header">
+                    <h2>Notifications</h2>
+                </div>
+            
+                <div class="notifications-content">
+                    <div class="notification-filters">
+                        <button class="filter-btn active" data-category="all">All</button>
+                        <button class="filter-btn" data-category="reminders">Reminders</button>
+                        <button class="filter-btn" data-category="alerts">Alerts</button>
+                        <button class="filter-btn" data-category="updates">Updates</button>
+                    </div>
+            
+                    <ul id="notificationList" class="notification-list">
+                        <!-- Reminders -->
+                        <li class="notification-item" data-category="reminders">
+                            <div class="notification-icon">🕒</div>
+                            <div class="notification-content">
+                                <div class="notification-title">Take morning medication</div>
+                                <div class="notification-message">It's time for your daily Lisinopril dose.</div>
+                                <div class="notification-time">2 minutes ago</div>
+                            </div>
+                        </li>
+                        <li class="notification-item" data-category="reminders">
+                            <div class="notification-icon">👟</div>
+                            <div class="notification-content">
+                                <div class="notification-title">30-minute walk reminder</div>
+                                <div class="notification-message">Don't forget your scheduled walk at 3:00 PM.</div>
+                                <div class="notification-time">20 minutes ago</div>
+                            </div>
+                        </li>
+                        <li class="notification-item" data-category="reminders">
+                            <div class="notification-icon">🩺</div>
+                            <div class="notification-content">
+                                <div class="notification-title">Doctor's Appointment Tomorrow</div>
+                                <div class="notification-message">Remember your check-up with Dr. Smith at 10:00 AM.</div>
+                                <div class="notification-time">2 hours ago</div>
+                            </div>
+                        </li>
+            
+                        <!-- Alerts -->
+                        <li class="notification-item" data-category="alerts">
+                            <div class="notification-icon">⚠️</div>
+                            <div class="notification-content">
+                                <div class="notification-title">High Blood Pressure Alert</div>
+                                <div class="notification-message">Your last reading was above normal. Consider contacting your doctor.</div>
+                                <div class="notification-time">1 hour ago</div>
+                            </div>
+                        </li>
+                        <li class="notification-item" data-category="alerts">
+                            <div class="notification-icon">🌡️</div>
+                            <div class="notification-content">
+                                <div class="notification-title">Elevated Body Temperature</div>
+                                <div class="notification-message">Your smart thermometer detected a slight fever. Monitor your symptoms.</div>
+                                <div class="notification-time">3 hours ago</div>
+                            </div>
+                        </li>
+                        <li class="notification-item" data-category="alerts">
+                            <div class="notification-icon">❤️</div>
+                            <div class="notification-content">
+                                <div class="notification-title">Irregular Heartbeat Detected</div>
+                                <div class="notification-message">Your smartwatch detected an unusual heart rhythm. Please check your ECG results.</div>
+                                <div class="notification-time">Yesterday</div>
+                            </div>
+                        </li>
+            
+                        <!-- Updates -->
+                        <li class="notification-item" data-category="updates">
+                            <div class="notification-icon">🆕</div>
+                            <div class="notification-content">
+                                <div class="notification-title">App Update Available</div>
+                                <div class="notification-message">Version 2.1 is now available with new features and bug fixes.</div>
+                                <div class="notification-time">2 days ago</div>
+                            </div>
+                        </li>
+                        <li class="notification-item" data-category="updates">
+                            <div class="notification-icon">📊</div>
+                            <div class="notification-content">
+                                <div class="notification-title">Monthly Health Report Ready</div>
+                                <div class="notification-message">Your health summary for last month is now available. Tap to view.</div>
+                                <div class="notification-time">1 week ago</div>
+                            </div>
+                        </li>
+                        <li class="notification-item" data-category="updates">
+                            <div class="notification-icon">🏥</div>
+                            <div class="notification-content">
+                                <div class="notification-title">New Telemedicine Service</div>
+                                <div class="notification-message">We've added video consultations with specialists. Check it out!</div>
+                                <div class="notification-time">2 weeks ago</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+        <a href="#help">Help</a>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="notifications.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

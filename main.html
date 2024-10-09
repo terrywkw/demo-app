@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Companion</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="hamburger-menu" id="hamburgerMenu">&#9776;</div>
+        <div class="header-logo">
+            <img src="" alt="App Logo" class="logo">
+            <h1>mGO</h1>
+        </div>
+        <div class="header-right">
+            <a href="notifications.html" class="notification-icon">&#128276;</a>
+            <a href="settings.html" class="profile-icon"><img src="./assets/user_icon_01.jpg" alt="User Profile" class="profile-icon">
+            </a>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        <nav class="sidebar" id="sidebar">
+            <ul>
+                <li><a href="main.html">Dashboard</a></li>
+                <li><a href="ai-assistant.html">AI Health Assistant</a></li>
+                <li><a href="health-management.html">Health Management</a></li>
+                <li><a href="routine-planning.html">Routine & Planning</a></li>
+                <li><a href="telemedicine.html">Telemedicine</a></li>
+                <li><a href="emergency.html">Emergency Response</a></li>
+                <li><a href="iot-devices.html">IoT Devices</a></li>
+                <li><a href="notifications.html">Notifications</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+
+        <main role="main">
+            <section id="dashboard">
+                <div class="greeting-section">
+                    <h2 class="greeting-text">Welcome back, <span class="user-name">John</span>!</h2>
+                    <p class="greeting-subtext">How are you feeling today?</p>
+                    <p class="motivation-text">Remember, every step counts towards a healthier you.</p>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="dashboard-section vital-signs">
+                        <h3>Vital Data</h3>
+                        <div class="vital-sign-card clickable" data-target="health-management.html#blood-pressure">
+                            <h4>Blood Pressure</h4>
+                            <div class="infographic">
+                                <canvas id="bloodPressureChart"></canvas>
+                            </div>
+                            <p class="current-value">120/80 mmHg</p>
+                        </div>
+                        <!-- <div class="vital-sign-card">
+                            <h4>Heart Rate</h4>
+                            <div class="infographic">
+                                <canvas id="heartRateChart"></canvas>
+                            </div>
+                            <p class="current-value">72 bpm</p>
+                        </div> -->
+                        <!-- <div class="vital-sign-card">
+                            <h4>Blood Sugar</h4>
+                            <div class="infographic">
+                                <canvas id="bloodSugarChart"></canvas>
+                            </div>
+                            <p class="current-value">95 mg/dL</p>
+                        </div> -->
+                    </div>
+                    <div class="dashboard-section daily-routine">
+                        <h3>Daily Routine</h3>
+                        <ul class="routine-list">
+                            <li><input type="checkbox" id="task1"><label class="task-label" for="task1">Take morning medication</label></li>
+                            <li><input type="checkbox" id="task2"><label class="task-label" for="task2">30-minute walk</label></li>
+                            <li><input type="checkbox" id="task3"><label class="task-label" for="task3">Log blood pressure</label></li>
+                        </ul>
+                        <p class="encouragement">Great job! Keep up the good work!</p>
+                    </div>
+                    <div class="dashboard-section notifications">
+                        <h3>Upcoming & Alerts</h3>
+                        <ul class="notification-list">
+                            <li>Doctor's appointment tomorrow at 2 PM</li>
+                            <li>Refill medication in 3 days</li>
+                            <li>New health tip available</li>
+                        </ul>
+                    </div>
+                    <div class="vital-sign-card add-custom-card">
+                        <div class="add-icon">+</div>
+                        <p>Add Custom Card</p>
+                    </div>
+
+                </div>
+                <div class="quick-access">
+                    <a href="ai-assistant.html" class="feature-btn">AI Assistant</a>
+                    <a href="health-management.html" class="feature-btn">Health Management</a>
+                    <a href="routine-planning.html" class="feature-btn">Routine & Planning</a>
+                    <a href="ai-assistant.html" class="feature-btn">Voice Memo</a>
+                </div>
+            </section>
+        </main>
+    
+        <script src="dashboard.js"></script>
+        <script src="main.js"></script>
+    </div>
+
+    <footer>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+        <a href="#help">Help</a>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

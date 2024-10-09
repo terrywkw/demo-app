@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telemedicine - Health Companion</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="telemedicine.css">
+</head>
+<body>
+    <header>
+        <div class="hamburger-menu" id="hamburgerMenu">&#9776;</div>
+        <div class="header-logo">
+            <img src="./assets/temp_logo.svg" alt="App Logo" class="logo">
+            <h1>mGO</h1>
+        </div>
+        <div class="header-right">
+            <a href="notifications.html" class="notification-icon">&#128276;</a>
+            <a href="settings.html" class="profile-icon"><img src="./assets/user_icon_01.jpg" alt="User Profile" class="profile-icon">
+            </a>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        <nav class="sidebar" id="sidebar">
+            <ul>
+                <li><a href="main.html">Dashboard</a></li>
+                <li><a href="ai-assistant.html">AI Health Assistant</a></li>
+                <li><a href="health-management.html">Health Management</a></li>
+                <li><a href="routine-planning.html">Routine & Planning</a></li>
+                <li><a href="telemedicine.html">Telemedicine</a></li>
+                <li><a href="emergency.html">Emergency Response</a></li>
+                <li><a href="iot-devices.html">IoT Devices</a></li>
+                <li><a href="notifications.html">Notifications</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <div class="telemedicine-container" role="main">
+                <div class="telemedicine-header">
+                    <h2>Telemedicine</h2>
+                </div>
+            
+                <div class="telemedicine-grid">
+                    <div class="telemedicine-card">
+                        <h3>Available Doctors</h3>
+                        <ul class="doctor-list">
+                            <li class="doctor-item">
+                                <img src="assets/user_icon_02.jpg" alt="Dr. Smith" class="doctor-avatar">
+                                <div class="doctor-info">
+                                    <h4>Dr. Emily Smith</h4>
+                                    <p>Speciality: General Practice</p>
+                                    <p>Next Available: Today, 3:00 PM</p>
+                                </div>
+                                <button class="book-btn">Book Appointment</button>
+                            </li>
+                            <li class="doctor-item">
+                                <img src="assets/user_icon_05.jpg" alt="Dr. Johnson" class="doctor-avatar">
+                                <div class="doctor-info">
+                                    <h4>Dr. Michael Johnson</h4>
+                                    <p>Speciality: Cardiology</p>
+                                    <p>Next Available: Tomorrow, 10:00 AM</p>
+                                </div>
+                                <button class="book-btn">Book Appointment</button>
+                            </li>
+                        </ul>
+                    </div>
+            
+                    <div class="telemedicine-card">
+                        <h3>Upcoming Appointments</h3>
+                        <ul class="appointment-list">
+                            <li class="appointment-item">
+                                <img src="assets/user_icon_04.jpg" alt="Dr. Lee" class="appointment-avatar">
+                                <div class="appointment-info">
+                                    <h4>Dr. Sarah Lee</h4>
+                                    <p>Date: May 15, 2023</p>
+                                    <p>Time: 2:00 PM</p>
+                                </div>
+                                <button class="join-btn">Join Call</button>
+                            </li>
+                        </ul>
+                    </div>
+            
+                    <div class="telemedicine-card">
+                        <h3>Video Consultation</h3>
+                        <div id="videoContainer" class="video-container">
+                            <!-- Placeholder for video feed -->
+                        </div>
+                        <div class="call-controls">
+                            <button class="call-btn mute-btn">Mute</button>
+                            <button class="call-btn video-btn">Turn Off Video</button>
+                            <button class="call-btn end-call-btn">End Call</button>
+                        </div>
+                    </div>
+            
+                    <div class="telemedicine-card">
+                        <h3>Consultation History</h3>
+                        <ul class="consultation-list">
+                            <li class="consultation-item">
+                                <h4>Dr. Emily Smith</h4>
+                                <p>Date: May 1, 2023</p>
+                                <p>Reason: Follow-up on medication</p>
+                                <button class="view-summary-btn">View Summary</button>
+                            </li>
+                            <li class="consultation-item">
+                                <h4>Dr. Michael Johnson</h4>
+                                <p>Date: April 15, 2023</p>
+                                <p>Reason: Routine check-up</p>
+                                <button class="view-summary-btn">View Summary</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <!-- Footer content (same as main.html) -->
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="telemedicine.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

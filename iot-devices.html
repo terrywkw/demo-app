@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Devices - Health Companion</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="iot-devices.css">
+</head>
+<body>
+    <header>
+        <div class="hamburger-menu" id="hamburgerMenu">&#9776;</div>
+        <div class="header-logo">
+            <img src="./assets/temp_logo.svg" alt="App Logo" class="logo">
+            <h1>mGO</h1>
+        </div>
+        <div class="header-right">
+            <a href="notifications.html" class="notification-icon">&#128276;</a>
+            <a href="settings.html" class="profile-icon"><img src="./assets/user_icon_01.jpg" alt="User Profile" class="profile-icon">
+            </a>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        <nav class="sidebar" id="sidebar">
+            <ul>
+                <li><a href="main.html">Dashboard</a></li>
+                <li><a href="ai-assistant.html">AI Health Assistant</a></li>
+                <li><a href="health-management.html">Health Management</a></li>
+                <li><a href="routine-planning.html">Routine & Planning</a></li>
+                <li><a href="telemedicine.html">Telemedicine</a></li>
+                <li><a href="emergency.html">Emergency Response</a></li>
+                <li><a href="iot-devices.html">IoT Devices</a></li>
+                <li><a href="notifications.html">Notifications</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <div class="iot-devices-container">
+                <div class="iot-devices-header">
+                    <h2>IoT Devices</h2>
+                    <button id="addDeviceBtn" class="add-device-btn">Add New Device</button>
+                </div>
+            
+                <div class="iot-devices-grid">
+                    <div class="iot-card">
+                        <h3>Connected Devices</h3>
+                        <ul id="deviceList" class="device-list">
+                            <li class="device-item">
+                                <span>Smart Scale</span>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </li>
+                            <li class="device-item">
+                                <span>Blood Pressure Monitor</span>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </li>
+                            <li class="device-item">
+                                <span>Activity Tracker</span>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+            
+                    <div class="iot-card">
+                        <h3>Device Data</h3>
+                        <div id="deviceData" class="device-data">
+                            <div class="device-chart">
+                                <canvas id="dataChart"></canvas>
+                            </div>
+                            <div id="latestData" class="latest-data">
+                                <p><strong>Latest Weight:</strong> <span id="latestWeight">70.5 kg</span></p>
+                                <p><strong>Latest BP:</strong> <span id="latestBP">120/80 mmHg</span></p>
+                                <p><strong>Steps Today:</strong> <span id="latestSteps">8,500</span></p>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="iot-card">
+                        <h3>Device Settings</h3>
+                        <div id="deviceSettings" class="device-settings">
+                            <div class="device-setting">
+                                <label for="dataFrequency">Data Sync Frequency:</label>
+                                <select id="dataFrequency">
+                                    <option value="5">Every 5 minutes</option>
+                                    <option value="15">Every 15 minutes</option>
+                                    <option value="30">Every 30 minutes</option>
+                                    <option value="60">Every hour</option>
+                                </select>
+                            </div>
+                            <div class="device-setting">
+                                <span>Notifications:</span>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <!-- <div class="device-setting">
+                                <label for="notifications">Notifications:</label>
+                                <input type="checkbox" id="notifications" checked>
+                                <label for="notifications" class="toggle-label">Enable notifications</label>
+                            </div> -->
+                            <div class="device-setting">
+                                <label for="unitSystem">Unit System:</label>
+                                <select id="unitSystem">
+                                    <option value="metric">Metric (kg, cm)</option>
+                                    <option value="imperial">Imperial (lbs, in)</option>
+                                </select>
+                            </div>
+                            <button id="saveSettings" class="save-settings-btn">Save Settings</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <footer>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+        <a href="#help">Help</a>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="iot-devices.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

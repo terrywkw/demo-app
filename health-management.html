@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Management - Health Companion</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="health-management.css">
+</head>
+<body>
+    <header>
+        <div class="hamburger-menu" id="hamburgerMenu">&#9776;</div>
+        <div class="header-logo">
+            <img src="./assets/temp_logo.svg" alt="App Logo" class="logo">
+            <h1>mGO</h1>
+        </div>
+        <div class="header-right">
+            <a href="notifications.html" class="notification-icon">&#128276;</a>
+            <a href="settings.html" class="profile-icon"><img src="./assets/user_icon_01.jpg" alt="User Profile" class="profile-icon">
+            </a>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        <nav class="sidebar" id="sidebar">
+            <ul>
+                <li><a href="main.html">Dashboard</a></li>
+                <li><a href="ai-assistant.html">AI Health Assistant</a></li>
+                <li><a href="health-management.html">Health Management</a></li>
+                <li><a href="routine-planning.html">Routine & Planning</a></li>
+                <li><a href="telemedicine.html">Telemedicine</a></li>
+                <li><a href="emergency.html">Emergency Response</a></li>
+                <li><a href="iot-devices.html">IoT Devices</a></li>
+                <li><a href="notifications.html">Notifications</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+
+        <main class="health-management-container" role="main">
+            <div class="health-management-header">
+              <h2>Health Management</h2>
+            </div>
+        
+            <div class="health-management-grid">
+                <div class="health-card">
+                    <h3>Health Insights</h3>
+                    <div class="chart-container">
+                        <canvas id="healthChart"></canvas>
+                    </div>
+                    <!-- <div id="insightsInfographic" class="insights-infographic"></div>
+                    <ul id="insightsList" class="insights-list">
+                        
+                    </ul> -->
+                    <button id="addHealthInfoBtn" class="add-btn">Add Health Info</button>
+                </div>
+                <div class="health-card">
+                    <h3>Health Insights</h3>
+                    <!-- <div class="chart-container">
+                        <canvas id="healthChart"></canvas>
+                    </div> -->
+                    <div id="insightsInfographic" class="insights-infographic"></div>
+                    <ul id="insightsList" class="insights-list">
+                        <!-- Insights will be dynamically added here -->
+                    </ul>
+                </div>
+
+              <div class="health-card">
+                <h3>Medications History</h3>
+                <p id="medicationCount">blood pressure - 0.5g half pill - 8:02 AM</p>
+                <ul id="medicationList" class="medication-list"></ul>
+                <button id="addMedicationBtn" class="add-btn">Add Medication</button>
+              </div>
+        
+              <!-- <div class="health-card">
+                <h3>Health Information</h3>
+                <ul id="healthInfoList" class="health-info-list">
+                </ul>
+                <button id="addHealthInfoBtn" class="add-btn">Add Health Info</button>
+              </div> -->
+            </div>
+        </main>
+    </div>
+    <!-- Add Medication Modal -->
+    <div id="addMedicationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Add Medication</h3>
+            <form id="addMedicationForm">
+                <input type="text" id="medicationName" placeholder="Medication Name" required>
+                <input type="text" id="medicationDosage" placeholder="Dosage" required>
+                <input type="text" id="medicationFrequency" placeholder="Frequency" required>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+      
+      <!-- Add Health Info Modal -->
+    <div id="addHealthInfoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Add Health Information</h3>
+            <form id="addHealthInfoForm">
+                <input type="text" id="healthInfoType" placeholder="Health Info Type" required>
+                <input type="text" id="healthInfoValue" placeholder="Value" required>
+                <input type="date" id="healthInfoDate" placeholder="date">
+                <button type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+      
+      <!-- Load Chart.js before our script -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Load our JavaScript file -->
+    <script src="health-management.js"></script>
+    <script src="main.js"></script>
+
+    <footer>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+        <a href="#help">Help</a>
+    </footer>
+
+</body>
+</html>

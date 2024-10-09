@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routine & Planning - Health Companion</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="routine-planning.css">
+</head>
+<body>
+    <header>
+        <div class="hamburger-menu" id="hamburgerMenu">&#9776;</div>
+        <div class="header-logo">
+            <img src="./assets/temp_logo.svg" alt="App Logo" class="logo">
+            <h1>mGO</h1>
+        </div>
+        <div class="header-right">
+            <a href="notifications.html" class="notification-icon">&#128276;</a>
+            <a href="settings.html" class="profile-icon"><img src="./assets/user_icon_01.jpg" alt="User Profile" class="profile-icon">
+            </a>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        <nav class="sidebar" id="sidebar">
+            <ul>
+                <li><a href="main.html">Dashboard</a></li>
+                <li><a href="ai-assistant.html">AI Health Assistant</a></li>
+                <li><a href="health-management.html">Health Management</a></li>
+                <li><a href="routine-planning.html">Routine & Planning</a></li>
+                <li><a href="telemedicine.html">Telemedicine</a></li>
+                <li><a href="emergency.html">Emergency Response</a></li>
+                <li><a href="iot-devices.html">IoT Devices</a></li>
+                <li><a href="notifications.html">Notifications</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <div class="routine-planning-container" role="main">
+                <div class="routine-planning-header">
+                    <div class="header-text">
+                        <h2>Routine & Planning</h2>
+                        <p>Your health, your routines: AI-assisted plans tailored to your needs.</p>
+                    </div>
+                    <div>
+                        <button class="new-routine-btn">Create New Routine</button>
+                    </div>
+                </div>
+                
+                <div class="routine-grid">
+                    <div class="routine-card">
+                        <h3>Daily Routine</h3>
+                        <ul class="routine-list">
+                            <li><input type="checkbox" id="daily1"> <label for="daily1">Take morning medication (8:00 AM)</label></li>
+                            <li><input type="checkbox" id="daily2"> <label for="daily2">30-minute walk (9:00 AM)</label></li>
+                            <li><input type="checkbox" id="daily3"> <label for="daily3">Check blood pressure (10:00 AM)</label></li>
+                            <li><input type="checkbox" id="daily4"> <label for="daily4">Healthy lunch (12:30 PM)</label></li>
+                            <li><input type="checkbox" id="daily5"> <label for="daily5">Take afternoon medication (2:00 PM)</label></li>
+                            <li><input type="checkbox" id="daily6"> <label for="daily6">15-minute meditation (5:00 PM)</label></li>
+                            <li><input type="checkbox" id="daily7"> <label for="daily7">Evening relaxation routine (9:00 PM)</label></li>
+                        </ul>
+                        <div class="routine-actions">
+                            <button class="edit-btn">Edit</button>
+                            <button class="delete-btn">Delete</button>
+                            <button class="sync-btn" data-routine="daily">Sync to Calendar</button>
+                            <button class="share-btn" data-routine="daily">Share with Family</button>
+                        </div>
+                        <div class="sync-status" id="dailySyncStatus"></div>
+                        <div class="share-status" id="dailyShareStatus"></div>
+                    </div>
+            
+                    <div class="routine-card">
+                        <h3>Weekly Plan</h3>
+                        <ul class="routine-list">
+                            <li><strong>Monday:</strong> Yoga class (6:00 PM)</li>
+                            <li><strong>Tuesday:</strong> Grocery shopping for healthy meals</li>
+                            <li><strong>Wednesday:</strong> Swimming (5:00 PM)</li>
+                            <li><strong>Thursday:</strong> Doctor's appointment (2:00 PM)</li>
+                            <li><strong>Friday:</strong> Social meetup with friends (7:00 PM)</li>
+                            <li><strong>Saturday:</strong> Meal prep for the week</li>
+                            <li><strong>Sunday:</strong> Nature walk and relaxation</li>
+                        </ul>
+                        <div class="routine-actions">
+                            <button class="edit-btn">Edit</button>
+                            <button class="delete-btn">Delete</button>
+                            <button class="sync-btn" data-routine="weekly">Sync to Calendar</button>
+                            <button class="share-btn" data-routine="weekly">Share with Family</button>
+                        </div>
+                        <div class="sync-status" id="weeklySyncStatus"></div>
+                        <div class="share-status" id="weeklyShareStatus"></div>
+                    </div>
+            
+                    <div class="routine-card">
+                        <h3>Long-term Goals</h3>
+                        <ul class="routine-list">
+                            <li><input type="checkbox" id="long1"> <label for="long1">Reduce blood pressure to normal range (Target: 3 months)</label></li>
+                            <li><input type="checkbox" id="long2"> <label for="long2">Lose 10 pounds through diet and exercise (Target: 6 months)</label></li>
+                            <li><input type="checkbox" id="long3"> <label for="long3">Complete a 5K walk/run event (Target: 9 months)</label></li>
+                            <li><input type="checkbox" id="long4"> <label for="long4">Learn stress-reduction techniques (Target: Ongoing)</label></li>
+                            <li><input type="checkbox" id="long5"> <label for="long5">Establish a consistent sleep schedule (Target: 2 months)</label></li>
+                            <li><input type="checkbox" id="long6"> <label for="long6">Incorporate more plant-based meals into diet (Target: 4 months)</label></li>
+                        </ul>
+                        <div class="routine-actions">
+                            <button class="edit-btn">Edit</button>
+                            <button class="delete-btn">Delete</button>
+                            <button class="sync-btn" data-routine="longterm">Sync to Calendar</button>
+                            <button class="share-btn" data-routine="longterm">Share with Family</button>
+                        </div>
+                        <div class="sync-status" id="longtermSyncStatus"></div>
+                        <div class="share-status" id="longtermShareStatus"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+        <a href="#help">Help</a>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="routine-planning.js"></script>
+    <script src="main.js"></script>
+    
+</body>
+</html>

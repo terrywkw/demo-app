@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Response - Health Companion</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="emergency.css">
+</head>
+<body>
+    <header>
+        <div class="hamburger-menu" id="hamburgerMenu">&#9776;</div>
+        <div class="header-logo">
+            <img src="./assets/temp_logo.svg" alt="App Logo" class="logo">
+            <h1>mGO</h1>
+        </div>
+        <div class="header-right">
+            <a href="notifications.html" class="notification-icon">&#128276;</a>
+            <a href="settings.html" class="profile-icon"><img src="./assets/user_icon_01.jpg" alt="User Profile" class="profile-icon">
+            </a>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        <nav class="sidebar" id="sidebar">
+            <ul>
+                <li><a href="main.html">Dashboard</a></li>
+                <li><a href="ai-assistant.html">AI Health Assistant</a></li>
+                <li><a href="health-management.html">Health Management</a></li>
+                <li><a href="routine-planning.html">Routine & Planning</a></li>
+                <li><a href="telemedicine.html">Telemedicine</a></li>
+                <li><a href="emergency.html">Emergency Response</a></li>
+                <li><a href="iot-devices.html">IoT Devices</a></li>
+                <li><a href="notifications.html">Notifications</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <div class="emergency-container" role="main">
+                <div class="emergency-header">
+                    <h2>Emergency Response</h2>
+                </div>
+            
+                <div class="emergency-grid">
+                    <div class="emergency-card primary-action">
+                        <h3>Call Emergency Services</h3>
+                        <button id="emergencyCallBtn" class="emergency-button">Call 000</button>
+                        <p class="emergency-info">Press this button to immediately connect with emergency services.</p>
+                    </div>
+            
+                    <div class="emergency-card">
+                        <h3>Quick Health Information</h3>
+                        <ul class="info-list">
+                            <li><strong>Blood Type:</strong> A+</li>
+                            <li><strong>Allergies:</strong> Penicillin, Peanuts</li>
+                            <li><strong>Medical Conditions:</strong> Asthma, Hypertension</li>
+                            <li><strong>Current Medications:</strong> Lisinopril, Albuterol</li>
+                        </ul>
+                    </div>
+            
+                    <div class="emergency-card">
+                        <h3>Emergency Contacts</h3>
+                        <ul class="contact-list">
+                            <li>
+                                <strong>John Doe (Spouse)</strong>
+                                <button class="call-contact-btn" data-number="+1234567890">Call</button>
+                            </li>
+                            <li>
+                                <strong>Dr. Emily Smith</strong>
+                                <button class="call-contact-btn" data-number="+1987654321">Call</button>
+                            </li>
+                        </ul>
+                    </div>
+            
+                    <div class="emergency-card">
+                        <h3>First Aid Instructions</h3>
+                        <select id="firstAidSelect" class="first-aid-select">
+                            <option value="">Select a condition...</option>
+                            <option value="cpr">CPR</option>
+                            <option value="choking">Choking</option>
+                            <option value="bleeding">Severe Bleeding</option>
+                            <option value="burns">Burns</option>
+                        </select>
+                        <div id="firstAidInstructions" class="instruction-list"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <!-- Footer content (same as main.html) -->
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="emergency-response.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

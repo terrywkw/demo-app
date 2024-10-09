@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Health Assistant - Health Companion</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="ai-assistant.css">
+</head>
+<body>
+    <header>
+        <div class="hamburger-menu" id="hamburgerMenu">&#9776;</div>
+        <div class="header-logo">
+            <img src="./assets/temp_logo.svg" alt="App Logo" class="logo">
+            <h1>mGO</h1>
+        </div>
+        <div class="header-right">
+          <a href="notifications.html" class="notification-icon">&#128276;</a>
+          <a href="settings.html" class="profile-icon"><img src="./assets/user_icon_01.jpg" alt="User Profile" class="profile-icon">
+          </a>
+      </div>
+    </header>
+
+    <div class="content-wrapper">
+        <nav class="sidebar" id="sidebar">
+            <ul>
+                <li><a href="main.html">Dashboard</a></li>
+                <li><a href="ai-assistant.html">AI Health Assistant</a></li>
+                <li><a href="health-management.html">Health Management</a></li>
+                <li><a href="routine-planning.html">Routine & Planning</a></li>
+                <li><a href="telemedicine.html">Telemedicine</a></li>
+                <li><a href="emergency.html">Emergency Response</a></li>
+                <li><a href="iot-devices.html">IoT Devices</a></li>
+                <li><a href="notifications.html">Notifications</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+
+        <main class="ai-assistant-container" role="main">
+            <div class="ai-assistant-header">
+              <h2>AI Health Assistant</h2>
+            </div>
+        
+            <div class="chat-container">
+              <div id="chatMessages" class="chat-messages">
+                <!-- Pre-written dialogues will be inserted here -->
+              </div>
+              <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Type in 'Hi', 'My diet' or 'Summary' for demo dialogue">
+                <button id="sendButton">Send</button>
+              </div>
+            </div>
+        
+            <div class="voice-control">
+              <button id="voiceButton" class="voice-button">Start Voice Interaction</button>
+            </div>
+            <div id="listeningIndicator" class="listening-indicator hidden">Listening...</div>
+          </main>
+    </div>
+
+    <footer>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+        <a href="#help">Help</a>
+    </footer>
+
+    <!-- <script src="app.js"></script> -->
+    <script src="ai-assistant.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
